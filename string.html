@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>MyString Methods Demo</title>
+  <style>
+    body {
+      font-family: Consolas, monospace;
+      background-color: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+
+    h2 {
+      color: #0066cc;
+    }
+
+    .method {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-left: 5px solid #4caf50;
+    }
+
+    .example {
+      background-color: #f0f0f0;
+      padding: 8px;
+      margin-top: 10px;
+      color: #006600;
+      border-left: 4px solid #009688;
+    }
+
+    code {
+      white-space: pre-wrap;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="./index.html">main</a>
+  <h1>MyString Class - Manual Implementations</h1>
+    <h2>Contructor</h2>
+
+  <div class="method"> <code>
+public MyString(String str) { 
+    this.str = str; 
+  </code>
+    }</div>
+  <div class="method">
+    <h2>toLowerCase</h2>
+    <code>
+public String toLowerCase() {
+    String result = "";
+    for (int i = 0; i < str.length(); i++) {
+        char ch = str.charAt(i);
+        if (ch >= 'A' && ch <= 'Z') {
+            result += (char)(ch + 32);
+        } else {
+            result += ch;
+        }
+    }
+    return result;
+}
+  </code>
+    <div class="example"> new MyString("HELLO").toLowerCase() → <b>"hello"</b></div>
+  </div>
+
+  <div class="method">
+    <h2>toUpperCase</h2>
+    <code>
+public String toUpperCase() {
+    String result = "";
+    for (int i = 0; i < str.length(); i++) {
+        char ch = str.charAt(i);
+        if (ch >= 'a' && ch <= 'z') {
+            result += (char)(ch - 32);
+        } else {
+            result += ch;
+        }
+    }
+    return result;
+}
+  </code>
+    <div class="example"> new MyString("hello").toUpperCase() → <b>"HELLO"</b></div>
+  </div>
+
+  <div class="method">
+    <h2>length</h2>
+    <code>
+public int length() {
+    int count = 0;
+    for (char ch : str.toCharArray()) count++;
+    return count;
+}
+  </code>
+    <div class="example"> new MyString("hi").length() → <b>2</b></div>
+  </div>
+
+  <div class="method">
+    <h2>charAt</h2>
+    <code>
+public char charAt(int index) {
+    return str.toCharArray()[index];
+}
+  </code>
+    <div class="example"> new MyString("hi").charAt(1) → <b>'i'</b></div>
+  </div>
+
+  <div class="method">
+    <h2>equals</h2>
+    <code>
+public boolean equals(String other) {
+    if (str.length() != other.length()) return false;
+    for (int i = 0; i < str.length(); i++) {
+        if (str.charAt(i) != other.charAt(i)) return false;
+    }
+    return true;
+}
+  </code>
+    <div class="example"> new MyString("hi").equals("hi") → <b>true</b></div>
+  </div>
+
+  <div class="method">
+    <h2>compareTo</h2>
+    <code>
+public int compareTo(String other) {
+    int len = Math.min(str.length(), other.length());
+    for (int i = 0; i < len; i++) {
+        if (str.charAt(i) != other.charAt(i))
+            return str.charAt(i) - other.charAt(i);
+    }
+    return str.length() - other.length();
+}
+  </code>
+    <div class="example"> new MyString("abc").compareTo("abd") → <b>-1</b></div>
+  </div>
+
+  <div class="method">
+    <h2>indexOf</h2>
+    <code>
+public int indexOf(char ch) {
+    for (int i = 0; i < str.length(); i++) {
+        if (str.charAt(i) == ch) return i;
+    }
+    return -1;
+}
+  </code>
+    <div class="example"> new MyString("abc").indexOf('c') → <b>2</b></div>
+  </div>
+
+  <div class="method">
+    <h2>lastIndexOf</h2>
+    <code>
+public int lastIndexOf(char ch) {
+    for (int i = str.length() - 1; i >= 0; i--) {
+        if (str.charAt(i) == ch) return i;
+    }
+    return -1;
+}
+  </code>
+    <div class="example"> new MyString("banana").lastIndexOf('a') → <b>5</b></div>
+  </div>
+
+  <div class="method">
+    <h2>contains</h2>
+    <code>
+public boolean contains(String sub) {
+    for (int i = 0; i <= str.length() - sub.length(); i++) {
+        int j;
+        for (j = 0; j < sub.length(); j++) {
+            if (str.charAt(i + j) != sub.charAt(j)) break;
+        }
+        if (j == sub.length()) return true;
+    }
+    return false;
+}
+  </code>
+    <div class="example"> new MyString("hello").contains("ell") → <b>true</b></div>
+  </div>
+
+  <div class="method">
+    <h2>startsWith</h2>
+    <code>
+public boolean startsWith(String prefix) {
+    if (prefix.length() > str.length()) return false;
+    for (int i = 0; i < prefix.length(); i++) {
+        if (str.charAt(i) != prefix.charAt(i)) return false;
+    }
+    return true;
+}
+  </code>
+    <div class="example"> new MyString("hello").startsWith("he") → <b>true</b></div>
+  </div>
+
+  <div class="method">
+    <h2>endsWith</h2>
+    <code>
+public boolean endsWith(String suffix) {
+    if (suffix.length() > str.length()) return false;
+    int offset = str.length() - suffix.length();
+    for (int i = 0; i < suffix.length(); i++) {
+        if (str.charAt(offset + i) != suffix.charAt(i)) return false;
+    }
+    return true;
+}
+  </code>
+    <div class="example"> new MyString("hello").endsWith("lo") → <b>true</b></div>
+  </div>
+
+  <div class="method">
+    <h2>toCharArray</h2>
+    <code>
+public char[] toCharArray() {
+    char[] arr = new char[str.length()];
+    for (int i = 0; i < str.length(); i++) {
+        arr[i] = str.charAt(i);
+    }
+    return arr;
+}
+  </code>
+    <div class="example"> new MyString("hi").toCharArray() → <b>['h', 'i']</b></div>
+  </div>
+
+  <div class="method">
+    <h2>split</h2>
+    <code>
+public String[] split(char delimiter) {
+    java.util.List<String> parts = new java.util.ArrayList<>();
+    String current = "";
+    for (int i = 0; i < str.length(); i++) {
+        if (str.charAt(i) == delimiter) {
+            parts.add(current);
+            current = "";
+        } else {
+            current += str.charAt(i);
+        }
+    }
+    parts.add(current);
+    return parts.toArray(new String[0]);
+}
+  </code>
+    <div class="example"> new MyString("a-b-c").split('-') → <b>["a", "b", "c"]</b></div>
+  </div>
+
+  <div class="method">
+    <h2>remove</h2>
+    <code>
+public String remove(char ch) {
+    String result = "";
+    for (int i = 0; i < str.length(); i++) {
+        if (str.charAt(i) != ch) result += str.charAt(i);
+    }
+    return result;
+}
+  </code>
+    <div class="example"> new MyString("hello").remove('l') → <b>"heo"</b></div>
+  </div>
+
+  <div class="method">
+    <h2>reverse</h2>
+    <code>
+public String reverse() {
+    String rev = "";
+    for (int i = str.length() - 1; i >= 0; i--) {
+        rev += str.charAt(i);
+    }
+    return rev;
+}
+  </code>
+    <div class="example"> new MyString("abc").reverse() → <b>"cba"</b></div>
+  </div>
+
+  <div class="method">
+    <h2>trim</h2>
+    <code>
+public String trim() {
+    int start = 0, end = str.length() - 1;
+    while (start <= end && str.charAt(start) == ' ') start++;
+    while (end >= start && str.charAt(end) == ' ') end--;
+    String result = "";
+    for (int i = start; i <= end; i++) result += str.charAt(i);
+    return result;
+}
+  </code>
+    <div class="example"> new MyString(" hi ").trim() → <b>"hi"</b></div>
+  </div>
+
+  <div class="method">
+    <h2>isEmpty</h2>
+    <code>
+public boolean isEmpty() {
+    return str.length() == 0;
+}
+  </code>
+    <div class="example"> new MyString("").isEmpty() → <b>true</b></div>
+  </div>
+
+  <div class="method">
+    <h2>isBlank</h2>
+    <code>
+public boolean isBlank() {
+    for (int i = 0; i < str.length(); i++) {
+        if (str.charAt(i) != ' ') return false;
+    }
+    return true;
+}
+  </code>
+    <div class="example"> new MyString(" ").isBlank() → <b>true</b></div>
+  </div>
+
+  <div class="method">
+    <h2>replaceAll</h2>
+    <code>
+public String replaceAll(char oldChar, char newChar) {
+    String result = "";
+    for (int i = 0; i < str.length(); i++) {
+        if (str.charAt(i) == oldChar) result += newChar;
+        else result += str.charAt(i);
+    }
+    return result;
+}
+  </code>
+    <div class="example"> new MyString("java").replaceAll('a', 'o') → <b>"jovo"</b></div>
+  </div>
+
+  <div class="method">
+    <h2>join (static)</h2>
+    <code>
+public static String join(String delimiter, String[] arr) {
+    String result = "";
+    for (int i = 0; i < arr.length; i++) {
+        result += arr[i];
+        if (i < arr.length - 1) result += delimiter;
+    }
+    return result;
+}
+  </code>
+    <div class="example"> MyString.join("-", new String[]{"a", "b", "c"}) → <b>"a-b-c"</b></div>
+  </div>
+
+  <div class="method">
+    <h2>regionMatches</h2>
+    <code>
+public boolean regionMatches(int toffset, String other, int ooffset, int len) {
+    if (toffset + len > str.length() || ooffset + len > other.length()) return false;
+    for (int i = 0; i < len; i++) {
+        if (str.charAt(toffset + i) != other.charAt(ooffset + i)) return false;
+    }
+    return true;
+}
+  </code>
+    <div class="example"> new MyString("programming").regionMatches(0, "pro", 0, 3) → <b>true</b></div>
+  </div>
+
+</body>
+
+</html>
